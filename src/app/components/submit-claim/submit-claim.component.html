@@ -1,0 +1,78 @@
+<div class="col-md-12  col-sm-12 col-xs-12 offset-md-5 mt-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" style="float: left;" routerLink="/register">Register a Member</a>
+        <a class="navbar-brand" style="float: right;" (click)="logout()">Logout</a>
+    </nav>
+    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+    <div class="reg-page">
+        <div class="form">
+            <form [formGroup]="submitForm" class="reg-form" (ngSubmit)="onSubmit()">
+                <h1 class="text-center">Submit a Claim Here !!</h1>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Member ID: </label>
+                    <input type="text" formControlName="memberId" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.memberId.errors }" />
+                    <div *ngIf="submitted && f.memberId.errors" class="invalid-feedback">
+                        <div *ngIf="f.memberId.errors.required">Member ID field is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">First Name: </label>
+                    <input type="text" formControlName="firstName" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" [pattern]="firstNamePattern" />
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.pattern">First Name can contain only Alphabets and space</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Last Name: </label>
+                    <input type="text" formControlName="lastName" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" [pattern]="lastNamePattern" />
+                    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastName.errors.pattern">Last Name can contain only Alphabets and space</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Date of Birth: </label>
+                    <input type="date" formControlName="dob" max="{{todate | date:'yyyy-MM-dd'}}" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
+                    <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                        <div *ngIf="f.dob.errors.required">DOB is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Date of Admission: </label>
+                    <input type="date" formControlName="doa" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.doa.errors }" />
+                    <div *ngIf="submitted && f.doa.errors" class="invalid-feedback">
+                        <div *ngIf="f.doa.errors.required">Date of Admission is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Date of Discharge: </label>
+                    <input type="date" formControlName="dod" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.dod.errors }" />
+                    <div *ngIf="submitted && f.dod.errors" class="invalid-feedback">
+                        <div *ngIf="f.dod.errors.required">Date of Discharge is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Provider Name: </label>
+                    <input type="text" formControlName="provider" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.provider.errors }" />
+                    <div *ngIf="submitted && f.provider.errors" class="invalid-feedback">
+                        <div *ngIf="f.provider.errors.required">Provider Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Total Bill Amount: </label>
+                    <input type="text" formControlName="billAmt" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.billAmt.errors }" [pattern]="billAmtPattern" />
+                    <div *ngIf="submitted && f.billAmt.errors" class="invalid-feedback">
+                        <div *ngIf="f.billAmt.errors.pattern">Bill Amount accepts only numbers and decimals</div>
+                    </div>
+                </div>
+                <button class="btn btn-success">SUBMIT</button>
+            </form>
+        </div>
+    </div>

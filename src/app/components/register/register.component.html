@@ -1,0 +1,146 @@
+<div class="col-md-12 col-sm-12 col-xs-12 offset-md-5 mt-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" style="float: left;" routerLink="/submit">Submit a Claim</a>
+      <a class="navbar-brand" style="float: right;" (click)="logout()">Logout</a>
+      </nav>
+    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+        <div class="reg-page">
+            <div class="form">                      
+            <form [formGroup]="registerForm" class="reg-form"  (ngSubmit)="onSubmit()">
+                <h1 class="text-center" *ngIf="this.isRegH1Visible" (click)="this.isRegH1Visible = true">Register a Member Here !!</h1>
+                <h1 class="text-center" *ngIf="this.isUpdateH1Visible" (click)="this.isUpdateH1Visible = true">Update Member details Here !!</h1>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12" *ngIf="!isRegButtonVisible" id="updateMember">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Member ID: </label>
+                    <input type="text" formControlName="memberId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.memberId.errors }"/>
+                    <div *ngIf="submitted && f.memberId.errors" class="invalid-feedback">
+                        <div *ngIf="f.memberId.errors.required">Member ID is required to search!</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Name: </label>
+                    <input type="text" formControlName="custName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.custName.errors }" [pattern]="custNamePattern"/>
+                    <div *ngIf="submitted && f.custName.errors" class="invalid-feedback">
+                        <div *ngIf="f.custName.errors.pattern">Customer Name can contain only Alphabets and space</div>
+                    </div>
+                </div>
+                <div class="form-group  col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Address: </label> 
+                    <textarea type="text"  formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"></textarea>
+                    <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                        <div *ngIf="f.address.errors.required">Address field is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Country: </label>
+                    <!-- <select [(ngModel)]="country">
+                        <option>--Select--</option>
+                        <option *ngFor="let country of countryList" [value]="country"> {{ country }} </option>
+                    </select> -->
+                    <select formControlName="country" class="form-control" [value]="country">
+                        <option>--Select--</option>
+                        <option *ngFor="let country of countries">{{country}}</option>
+                    </select>
+                    <!-- <select placeholder="Country" [(ngModel)]="selectedCountry" (change)="changeCountry($event.target.value)">
+                        <option>--Choose Country--</option>
+                        <option *ngFor="let country of Countries">{{country.name}}</option>
+                    </select> -->
+                    <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                        <div *ngIf="f.country.errors.required">Please select a Country</div>
+                    </div>
+                </div>
+            
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">State: </label>
+                    <!-- <select *ngIf="country" [(ngModel)]="state" [value]="state">
+                        <option *ngFor="let state of states"> {{ state }} </option>
+                      </select> -->
+                    <select formControlName="state" class="form-control" [value]="state">
+                        <option>--Select--</option>
+                        <option *ngFor="let state of states">{{state}}</option>
+                    </select>
+                    <!-- <select placeholder="State" (change)="changeState($event.target.value)">
+                        <option>--Choose State--</option>
+                        <option *ngFor="let state of states">{{state.name}}</option>
+                    </select> -->
+                    <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                        <div *ngIf="f.state.errors.required">Please select a State</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Email Address: </label> 
+                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [pattern]="emailPattern"/>
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.pattern">Enter a valid email pattern</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">PAN: </label> 
+                    <input type="text" formControlName="pan" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pan.errors }"  [pattern]="panPattern"/>
+                    <div *ngIf="submitted && f.pan.errors" class="invalid-feedback">
+                        <div *ngIf="f.pan.errors.pattern">PAN should contain only 12 alpha numeric characters</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Contact #: </label> 
+                    <input type="text" formControlName="contactNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.contactNo.errors }" [pattern]="contactNoPattern"/>
+                    <div *ngIf="submitted && f.contactNo.errors" class="invalid-feedback">
+                        <div *ngIf="f.contactNo.errors.pattern">Contact # should be numeric and 10 in length</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Date of Birth: </label> 
+                    <input type="date" max="{{todate | date:'yyyy-MM-dd'}}" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
+                    <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                        <div *ngIf="f.dob.errors.required">DOB is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Registration Date: </label> 
+                    <input type="date" formControlName="regDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.regDate.errors }" />
+                    <div *ngIf="submitted && f.regDate.errors" class="invalid-feedback">
+                        <div *ngIf="f.regDate.errors.required">Registration Date is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="col-md-12 col-sm-12 col-xs-12 text-left">Age: </label> 
+                    <input type="text"  formControlName="age" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.age.errors }"   [pattern]="agePattern" />
+                    <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+                        <div *ngIf="f.age.errors.pattern">Age should be greater than 18</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12  col-sm-12 col-xs-12">
+                    <label class="depend col-md-12 col-sm-12 col-xs-12 text-left">Add Dependents here:</label>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td scope="col">S.No</td>
+                                <td scope="col">Name</td>
+                                <td scope="col">DOB</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row">1</td>
+                                <td><input id="t1" type="text"></td>
+                                <td><input id="t1" type="date"></td>
+                            </tr>
+                            <tr>
+                                <td scope="row">2</td>
+                                <td><input id="t1" type="text"></td>
+                                <td><input id="t1" type="date"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="updateBtn" *ngIf="this.isRegButtonVisible" (click)="this.isRegButtonVisible = true">
+                    <button class="btn btn-success">REGISTER</button>
+                </div>
+                <div class="updateBtn" *ngIf="this.isButtonVisible" (click)="this.isButtonVisible = true">
+                    <button class="btn btn-primary">UPDATE</button>
+                </div>                
+                <div class="form-group" *ngIf="this.isUpdateLinkVisible" (click)="this.isUpdateLinkVisible = true"><p class="message">Want to update the member details? <a (click)="dispUpdateBtn()" routerLink="/register">Update Here</a></p></div>
+                <div class="form-group" *ngIf="this.isRegLinkVisible" (click)="this.isRegLinkVisible = true"><p class="message">Want to register a new member? <a (click)="dispRegBtn()" routerLink="/register">Register Here</a></p></div>
+            </form>
+            </div>
+</div>

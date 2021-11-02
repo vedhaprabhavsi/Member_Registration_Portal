@@ -1,0 +1,50 @@
+<div class="col-md-12 col-sm-12 col-xs-12 offset-md-5 mt-5">
+  <div class="signup-page">
+    <div class="form">
+      <form [formGroup]="signupForm" class="signup-form" (ngSubmit)="onSubmit()">
+        <h1 class="text-center">SignUp Here !!</h1>
+        <div class="form-group col-md-12  col-sm-12 col-xs-12">
+          <label for="firstName" class="col-md-12 col-sm-12 col-xs-12 text-left">First Name</label>
+          <input type="text" formControlName="firstName" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-12  col-sm-12 col-xs-12">
+          <label class="col-md-12  col-sm-12 col-xs-12 text-left">Last Name </label>
+          <input type="text" formControlName="lastName" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-12  col-sm-12 col-xs-12">
+          <label class="col-md-12  col-sm-12 col-xs-12 text-left">Date of Birth </label>
+          <input type="date" formControlName="dob" max="{{todate | date:'yyyy-MM-dd'}}" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
+          <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+            <div *ngIf="f.dob.errors.required">DOB is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-12  col-sm-12 col-xs-12">
+          <label class="col-md-12  col-sm-12 col-xs-12 text-left">Email ID </label>
+          <input type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [pattern]="emailPattern" />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.pattern">Email should be in valid format</div>
+          </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <label class="col-md-12  col-sm-12 col-xs-12 text-left">Password</label>
+          <input type="password" formControlName="password" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [pattern]="pwdPattern" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.pattern">Password should be strong</div>
+          </div>
+        </div>
+        <button class="btn btn-success">SIGNUP</button>
+      </form>
+    </div>
+  </div>
+</div>

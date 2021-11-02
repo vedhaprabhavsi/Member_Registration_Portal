@@ -1,0 +1,31 @@
+﻿<div class="col-md-12 col-sm-12 col-xs-12 offset-md-5 mt-5">
+  <div class="login-page">
+    <div class="form">
+      <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+        <div class="logo text-center"><img src="/assets/login_1.png" alt="" height="25%" width="25%"></div>
+        <h1 class="text-center">Login Here !!</h1>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+
+          <label class="col-md-12 col-sm-12 col-xs-12 text-left">Username</label>
+          <input type="text" formControlName="username" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" [pattern]="emailPattern" />
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.pattern">Username should be a valid email ID</div>
+          </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <label class="col-md-12 col-sm-12 col-xs-12 text-left">Password</label>
+          <input type="password" formControlName="password" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [pattern]="pwdPattern" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.pattern">Password should have at least 8 characters, at least one uppercase,
+              one numeric and a special char</div>
+          </div>
+        </div>
+        <button class="btn btn-success">LOGIN</button>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+        <p class="message">New to this portal? <a routerLink="/signup">Signup Here</a></p>
+      </form>
+    </div>
+  </div>
+</div>
